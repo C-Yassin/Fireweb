@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" href="icon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>FlameGet - The Blazing Fast Downloader</title>
+    
+    <style>
+        /* Base Variables & Theme */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #fc9d0f, #ee612a);
+            --primary-hover-gradient: linear-gradient(135deg, #f3711e, #e74b3b);
+            
+            --primary-solid: #ee612a;
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px; /* Slightly wider to give screenshots more breathing room */
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 6rem 0 4rem;
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 0 0 1rem 0;
+            letter-spacing: -1px;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .flame-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .get-text {
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff; 
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover-gradient);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(252, 157, 15, 0.15);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text);
+            border: 2px solid #333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Sections & Grid */
+        .downloads-section {
+            padding: 4rem 0;
+            border-top: 1px solid #333;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            text-align: center;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* --- refined Features Section Styles --- */
+        .feature-row {
+            display: flex;
+            align-items: center;
+            gap: 5rem; /* Increased gap for better separation */
+            margin-bottom: 7rem; /* Increased spacing between rows */
+        }
+
+        .feature-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-text h3 i {
+            color: var(--primary-solid);
+            margin-right: 15px;
+            font-size: 1.8rem;
+        }
+
+        .feature-text p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+
+        .feature-image {
+            flex: 1.2; /* Makes the image slightly wider than the text block */
+            position: relative;
+        }
+
+        .feature-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 95%;
+            height: 95%;
+            background: var(--primary-gradient);
+            filter: blur(50px);
+            opacity: 0.12;
+            z-index: -1;
+            border-radius: 20px;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-image:hover::before {
+            opacity: 0.25;
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-image img:hover {
+            transform: translateY(-5px);
+        }
+        /* --- END Features Styles --- */
+
+        /* Cards */
+        .card {
+            border: 1px solid transparent;
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: 
+                linear-gradient(var(--surface), var(--surface)) padding-box,
+                linear-gradient(#2a2a2a, #2a2a2a) border-box;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: 
+                linear-gradient(var(--surface), var(--surface)) padding-box,
+                var(--primary-gradient) border-box;
+            box-shadow: 0 10px 20px rgba(252, 157, 15, 0.15);
+        }
+
+        .card h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .card h3 i {
+            color: var(--primary-solid);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .card .btn {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Donation Button Brand Colors */
+        .donate-github { border-color: #ea4aaa; color: #ea4aaa; }
+        .donate-github:hover { background-color: #ea4aaa; color: white; }
+        
+        .donate-kofi { border-color: #FF5E5B; color: #FF5E5B; }
+        .donate-kofi:hover { background-color: #FF5E5B; color: white; }
+        
+        .donate-paypal { border-color: #0079C1; color: #0079C1; }
+        .donate-paypal:hover { background-color: #0079C1; color: white; }
+        
+        .donate-crypto { border-color: #F7931A; color: #F7931A; }
+        .donate-crypto:hover { background-color: #F7931A; color: white; }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 850px) {
+            .feature-row, .feature-row.reverse {
+                flex-direction: column;
+                gap: 2.5rem;
+                text-align: center;
+                margin-bottom: 4rem;
+            }
+            .feature-text h3 {
+                justify-content: center;
+            }
+            .feature-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1 class="logo">
+                <img src="icon.ico" alt="logo" width="64">
+                <span class="brand-text">
+                    <span class="flame-text">Flame</span><span class="get-text">Get</span>
+                </span>
+            </h1>
+            <p class="tagline">A blazing fast, lightweight downloader built for speed and reliability. From native browser integration and full torrent support to auto-merging high-quality media, FlameGet handles it all seamlessly.</p>
+            
+            <div class="action-buttons">
+                <a href="#downloads" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down"></i> Download Now</a>
+                <a href="https://github.com/YOUR_USERNAME/FlameGet" target="_blank" class="btn btn-secondary"><i class="fa-brands fa-github"></i> View Source</a>
+            </div>
+        </header>
+
+        <section id="features" class="downloads-section" style="border-top: none; padding-top: 0;">
+            
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3><i class="fa-solid fa-bolt"></i> Blazing Fast Speeds</h3>
+                    <p>FlameGet uses advanced multi-threading to split your files into smaller pieces, downloading them simultaneously to max out your bandwidth and bring your files home faster.</p>
+                </div>
+                <div class="feature-image">
+                    <img src="screenshot_1.png" alt="FlameGet main interface showing download speeds">
+                </div>
+            </div>
+
+            <div class="feature-row reverse">
+                <div class="feature-text">
+                    <h3><i class="fa-solid fa-film"></i> Auto-Merge Media</h3>
+                    <p>Stop dealing with separate video and audio files. FlameGet leverages the power of FFmpeg to automatically stitch high-quality DASH tracks together completely in the background.</p>
+                </div>
+                <div class="feature-image">
+                    <img src="screenshot_5.png" alt="FlameGet settings and FFmpeg integration">
+                </div>
+            </div>
+
+            <div class="feature-row">
+                <div class="feature-text">
+                    <h3><i class="fa-solid fa-palette"></i> Native GTK4 Design</h3>
+                    <p>Built with Python and the modern GTK4 toolkit, FlameGet looks and feels like a native application. Enjoy smooth animations, crisp fonts, and full dark mode support. <strong>Plus</strong> it's fully customizable with CSS!</p>
+                </div>
+                <div class="feature-image">
+                    <img src="screenshot_3.png" alt="FlameGet modern GTK4 UI">
+                </div>
+            </div>
+
+        </section>
+
+        <section id="downloads" class="downloads-section">
+            <h2 class="section-title">Choose Your Platform</h2>
+            <p class="section-desc">Download the core FlameGet application for your operating system.</p>
+            <div class="grid">
+                
+                <div class="card">
+                    <h3><i class="fa-brands fa-windows"></i> Windows</h3>
+                    <p>Windows 10 / 11 (64-bit). Includes all necessary FFmpeg dependencies.</p>
+                    <a href="LINK_TO_WINDOWS_EXE" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download .exe</a>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-box-open"></i> Flatpak</h3>
+                    <p>The recommended way to install on Linux. Sandboxed and secure.</p>
+                    <a href="LINK_TO_FLATHUB_OR_FLATPAK" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Install Flatpak</a>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-brands fa-linux"></i> Linux Native</h3>
+                    <p>Standalone archive for advanced users and unsupported distros.</p>
+                    <a href="LINK_TO_LINUX_TAR" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download .tar.gz</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="extensions" class="downloads-section">
+            <h2 class="section-title">Browser Integration</h2>
+            <p class="section-desc">Supercharge your workflow. Install the browser extension to automatically catch file downloads and send YouTube links directly to FlameGet.</p>
+            <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); max-width: 800px; margin: 0 auto;">
+                
+                <div class="card">
+                    <h3><i class="fa-brands fa-chrome"></i> Chromium-Based</h3>
+                    <p>Works flawlessly with Google Chrome, Microsoft Edge, Brave, Vivaldi, Opera, and other Chromium browsers.</p>
+                    <a href="LINK_TO_CHROME_WEB_STORE" class="btn btn-secondary"><i class="fa-solid fa-puzzle-piece"></i> Chrome Web Store</a>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-brands fa-firefox-browser"></i> Gecko-Based</h3>
+                    <p>Built for privacy. Compatible with Mozilla Firefox, Waterfox, LibreWolf, and other Gecko-based browsers.</p>
+                    <a href="LINK_TO_FIREFOX_ADDONS" class="btn btn-secondary"><i class="fa-solid fa-puzzle-piece"></i> Firefox Add-ons</a>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="donate" class="downloads-section" style="text-align: center;">
+            <h2 class="section-title">Fuel the Fire!</h2>
+            <p class="section-desc">FlameGet is completely free, open-source, and ad-free. If this tool saves you time, consider dropping a tip to keep the servers running and the coffee flowing!</p>
+            
+            <div class="action-buttons" style="flex-wrap: wrap; max-width: 800px; margin: 0 auto 2rem;">
+                
+                <a href="LINK_TO_GITHUB_SPONSORS" class="btn btn-secondary donate-github">
+                    <i class="fa-regular fa-heart"></i> Sponsor on GitHub
+                </a>
+
+                <a href="LINK_TO_KOFI" class="btn btn-secondary donate-kofi">
+                    <i class="fa-solid fa-mug-hot"></i> Buy me a Ko-fi
+                </a>
+
+                <a href="LINK_TO_PAYPAL" class="btn btn-secondary donate-paypal">
+                    <i class="fa-brands fa-paypal"></i> PayPal
+                </a>
+
+                <button onclick="alert('Thank you for the support!\n\nBTC: Your_BTC_Wallet_Address_Here\nETH: Your_ETH_Wallet_Address_Here')" class="btn btn-secondary donate-crypto">
+                    <i class="fa-brands fa-bitcoin"></i> Crypto
+                </button>
+
+            </div>
+        </section>
+
+        <footer style="display: flex; justify-content: center; margin-top: 0; padding-top: 0; border-top: none;">
+            <p>&copy; 2026 FlameGet. Licensed under the MIT License.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
