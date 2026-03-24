@@ -9,7 +9,6 @@
     <title>FlameGet - The Blazing Fast Downloader</title>
     
     <style>
-        /* Base Variables & Theme */
         :root {
             --primary-gradient: linear-gradient(135deg, #fc9d0f, #ee612a);
             --primary-hover-gradient: linear-gradient(135deg, #f3711e, #e74b3b);
@@ -21,7 +20,6 @@
             --text-muted: #aaaaaa;
         }
 
-        /* Global Styles */
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             background-color: var(--bg);
@@ -32,7 +30,7 @@
         }
 
         .container {
-            max-width: 1100px; /* Slightly wider to give screenshots more breathing room */
+            max-width: 1100px;
             margin: 0 auto;
             padding: 2rem;
         }
@@ -120,7 +118,6 @@
             margin-bottom: 2rem;
         }
 
-        /* Sections & Grid */
         .downloads-section {
             padding: 4rem 0;
             border-top: 1px solid #333;
@@ -146,12 +143,11 @@
             gap: 1.5rem;
         }
 
-        /* --- refined Features Section Styles --- */
         .feature-row {
             display: flex;
             align-items: center;
-            gap: 5rem; /* Increased gap for better separation */
-            margin-bottom: 7rem; /* Increased spacing between rows */
+            gap: 5rem;
+            margin-bottom: 7rem;
         }
 
         .feature-row.reverse {
@@ -183,7 +179,7 @@
         }
 
         .feature-image {
-            flex: 1.2; /* Makes the image slightly wider than the text block */
+            flex: 1.2;
             position: relative;
         }
 
@@ -220,9 +216,6 @@
         .feature-image img:hover {
             transform: translateY(-5px);
         }
-        /* --- END Features Styles --- */
-
-        /* Cards */
         .card {
             border: 1px solid transparent;
             border-radius: 12px;
@@ -267,15 +260,11 @@
             box-sizing: border-box;
         }
 
-        /* Donation Button Brand Colors */
         .donate-github { border-color: #ea4aaa; color: #ea4aaa; }
         .donate-github:hover { background-color: #ea4aaa; color: white; }
         
         .donate-kofi { border-color: #FF5E5B; color: #FF5E5B; }
         .donate-kofi:hover { background-color: #FF5E5B; color: white; }
-        
-        .donate-paypal { border-color: #0079C1; color: #0079C1; }
-        .donate-paypal:hover { background-color: #0079C1; color: white; }
         
         .donate-crypto { border-color: #F7931A; color: #F7931A; }
         .donate-crypto:hover { background-color: #F7931A; color: white; }
@@ -401,19 +390,15 @@
             
             <div class="action-buttons" style="flex-wrap: wrap; max-width: 800px; margin: 0 auto 2rem;">
                 
-                <a href="LINK_TO_GITHUB_SPONSORS" class="btn btn-secondary donate-github">
+                <a href="https://github.com/sponsors/C-Yassin" class="btn btn-secondary donate-github">
                     <i class="fa-regular fa-heart"></i> Sponsor on GitHub
                 </a>
 
-                <a href="LINK_TO_KOFI" class="btn btn-secondary donate-kofi">
+                <a href="https://ko-fi.com/cyassin" class="btn btn-secondary donate-kofi">
                     <i class="fa-solid fa-mug-hot"></i> Buy me a Ko-fi
                 </a>
 
-                <a href="LINK_TO_PAYPAL" class="btn btn-secondary donate-paypal">
-                    <i class="fa-brands fa-paypal"></i> PayPal
-                </a>
-
-                <button onclick="alert('Thank you for the support!\n\nBTC: Your_BTC_Wallet_Address_Here\nETH: Your_ETH_Wallet_Address_Here')" class="btn btn-secondary donate-crypto">
+                <button onclick="alert('Thank you for the support!\n\nBTC: 1CMDyDEHcymV8xPWa3K4bJPE9ML2Km9c3i\nETH: 0xE9AB4770E1889Ce23952097e55489B57C3afd9cD\nUSDT (Ethereum ERC-20): 0xE9AB4770E1889Ce23952097e55489B57C3afd9cD')" class="btn btn-secondary donate-crypto">
                     <i class="fa-brands fa-bitcoin"></i> Crypto
                 </button>
 
