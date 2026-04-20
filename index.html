@@ -260,12 +260,24 @@
             box-sizing: border-box;
         }
 
+        .linux-header-wrapper {
+            max-height: 150px;
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .linux-header-wrapper.hidden {
+            max-height: 0;
+            opacity: 0;
+            pointer-events: none;
+            margin: 0;
+        }
+
         .linux-options {
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
             margin-top: 1.5rem;
-            overflow: hidden;
             max-height: 400px;
             opacity: 1;
             transition: all 0.3s ease-in-out;
@@ -290,6 +302,7 @@
             border-color: var(--primary-solid) !important;
             background-color: transparent !important;
         }
+
         .donate-github { border-color: #ea4aaa; color: #ea4aaa; }
         .donate-github:hover { background-color: #ea4aaa; color: white; }
         
@@ -385,18 +398,20 @@
                 </div>
 
                 <div class="card">
-                    <h3><i class="fa-brands fa-linux"></i> Linux Native</h3>
-                    <p>Packages and binaries for various Linux distributions.</p>
+                    <div id="linux-header-wrapper" class="linux-header-wrapper">
+                        <h3><i class="fa-brands fa-linux"></i> Linux Native</h3>
+                        <p>Packages and binaries for various Linux distributions.</p>
+                    </div>
                     
                     <button id="linux-options-toggle" class="btn btn-secondary" onclick="toggleLinuxOptions()">
                         <i class="fa-solid fa-list"></i> View Options
                     </button>
                     
                     <div id="linux-options-container" class="linux-options hidden">
-                        <a href="LINK_TO_APPIMAGE" class="btn btn-secondary sub-btn"><i class="fa-solid fa-cube"></i> .AppImage (Universal)</a>
-                        <a href="LINK_TO_DEB" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box"></i> .deb (Debian/Ubuntu)</a>
-                        <a href="LINK_TO_RPM" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box-open"></i> .rpm (Fedora/RHEL)</a>
-                        <a href="LINK_TO_TAR" class="btn btn-secondary sub-btn"><i class="fa-solid fa-file-zipper"></i> .tar.gz (Archive)</a>
+                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-cube"></i> .AppImage (Universal)</a>
+                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box"></i> .deb (Debian/Ubuntu)</a>
+                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box-open"></i> .rpm (Fedora/RHEL)</a>
+                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-file-zipper"></i> .tar.gz (Archive)</a>
                     </div>
                 </div>
 
@@ -452,14 +467,19 @@
     <script>
         function toggleLinuxOptions() {
             const container = document.getElementById('linux-options-container');
+            const headerWrapper = document.getElementById('linux-header-wrapper');
             const btnIcon = document.querySelector('#linux-options-toggle i');
             
             if (container.classList.contains('hidden')) {
+                // Open buttons, smoothly hide header
                 container.classList.remove('hidden');
+                headerWrapper.classList.add('hidden');
                 btnIcon.classList.remove('fa-list');
                 btnIcon.classList.add('fa-chevron-up');
             } else {
+                // Close buttons, smoothly show header
                 container.classList.add('hidden');
+                headerWrapper.classList.remove('hidden');
                 btnIcon.classList.remove('fa-chevron-up');
                 btnIcon.classList.add('fa-list');
             }
