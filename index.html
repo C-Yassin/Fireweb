@@ -388,13 +388,13 @@
                 <div class="card">
                     <h3><i class="fa-brands fa-windows"></i> Windows</h3>
                     <p>Windows 10 / 11 (64-bit). Includes all necessary FFmpeg dependencies.</p>
-                    <a href="LINK_TO_WINDOWS_EXE" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download .exe</a>
+                    <a id="btn-windows" href="https://github.com/C-Yassin/FlameGet/releases/latest" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download .exe</a>
                 </div>
 
                 <div class="card">
                     <h3><i class="fa-solid fa-box-open"></i> Flatpak</h3>
                     <p>The recommended way to install on Linux. Sandboxed and secure.</p>
-                    <a href="LINK_TO_FLATHUB_OR_FLATPAK" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Install Flatpak</a>
+                    <a href="#SOON" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Install Flatpak</a>
                 </div>
 
                 <div class="card">
@@ -408,10 +408,10 @@
                     </button>
                     
                     <div id="linux-options-container" class="linux-options hidden">
-                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-cube"></i> .AppImage (Universal)</a>
-                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box"></i> .deb (Debian/Ubuntu)</a>
-                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box-open"></i> .rpm (Fedora/RHEL)</a>
-                        <a href="#" class="btn btn-secondary sub-btn"><i class="fa-solid fa-file-zipper"></i> .tar.gz (Archive)</a>
+                        <a id="btn-appimage" href="https://github.com/C-Yassin/FlameGet/releases/latest" class="btn btn-secondary sub-btn"><i class="fa-solid fa-cube"></i> .AppImage (Universal)</a>
+                        <a id="btn-deb" href="https://github.com/C-Yassin/FlameGet/releases/latest" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box"></i> .deb (Debian/Ubuntu)</a>
+                        <a id="btn-rpm" href="https://github.com/C-Yassin/FlameGet/releases/latest" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box-open"></i> .rpm (Fedora/RHEL)</a>
+                        <a id="btn-tar" href="https://github.com/C-Yassin/FlameGet/releases/latest" class="btn btn-secondary sub-btn"><i class="fa-solid fa-file-zipper"></i> .tar.gz (Archive)</a>
                     </div>
                 </div>
 
@@ -471,19 +471,55 @@
             const btnIcon = document.querySelector('#linux-options-toggle i');
             
             if (container.classList.contains('hidden')) {
-                // Open buttons, smoothly hide header
                 container.classList.remove('hidden');
                 headerWrapper.classList.add('hidden');
                 btnIcon.classList.remove('fa-list');
                 btnIcon.classList.add('fa-chevron-up');
             } else {
-                // Close buttons, smoothly show header
                 container.classList.add('hidden');
                 headerWrapper.classList.remove('hidden');
                 btnIcon.classList.remove('fa-chevron-up');
                 btnIcon.classList.add('fa-list');
             }
         }
+
+        async function fetchLatestRelease() {
+            const repo = "C-Yassin/FlameGet";
+            const apiUrl = `https://api.github.com/repos/${repo}/releases/latest`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) throw new Error("Could not fetch release data");
+                
+                const data = await response.json();
+                const assets = data.assets;
+
+                assets.forEach(asset => {
+                    const fileName = asset.name.toLowerCase();
+                    const downloadUrl = asset.browser_download_url;
+
+                    if (fileName.endsWith('.exe')) {
+                        document.getElementById('btn-windows').href = downloadUrl;
+                    } 
+                    else if (fileName.endsWith('.appimage')) {
+                        document.getElementById('btn-appimage').href = downloadUrl;
+                    } 
+                    else if (fileName.endsWith('.deb')) {
+                        document.getElementById('btn-deb').href = downloadUrl;
+                    } 
+                    else if (fileName.endsWith('.rpm')) {
+                        document.getElementById('btn-rpm').href = downloadUrl;
+                    } 
+                    else if (fileName.endsWith('.tar.gz')) {
+                        document.getElementById('btn-tar').href = downloadUrl;
+                    }
+                });
+            } catch (error) {
+                console.error("GitHub API Error:", error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchLatestRelease);
     </script>
 </body>
 </html>
