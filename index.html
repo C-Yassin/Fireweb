@@ -216,13 +216,13 @@
         .feature-image img:hover {
             transform: translateY(-5px);
         }
+
         .card {
             border: 1px solid transparent;
             border-radius: 12px;
             padding: 2.5rem 2rem;
             text-align: center;
             transition: all 0.2s ease;
-            cursor: pointer;
             background: 
                 linear-gradient(var(--surface), var(--surface)) padding-box,
                 linear-gradient(#2a2a2a, #2a2a2a) border-box;
@@ -260,6 +260,36 @@
             box-sizing: border-box;
         }
 
+        .linux-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            max-height: 400px;
+            opacity: 1;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .linux-options.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            pointer-events: none;
+        }
+
+        .sub-btn {
+            font-size: 0.9rem !important;
+            padding: 0.6rem 1rem !important;
+            border-color: #444 !important;
+            color: var(--text-muted) !important;
+        }
+
+        .sub-btn:hover {
+            color: var(--text) !important;
+            border-color: var(--primary-solid) !important;
+            background-color: transparent !important;
+        }
         .donate-github { border-color: #ea4aaa; color: #ea4aaa; }
         .donate-github:hover { background-color: #ea4aaa; color: white; }
         
@@ -269,7 +299,6 @@
         .donate-crypto { border-color: #F7931A; color: #F7931A; }
         .donate-crypto:hover { background-color: #F7931A; color: white; }
         
-        /* Mobile Responsiveness */
         @media (max-width: 850px) {
             .feature-row, .feature-row.reverse {
                 flex-direction: column;
@@ -357,8 +386,18 @@
 
                 <div class="card">
                     <h3><i class="fa-brands fa-linux"></i> Linux Native</h3>
-                    <p>Standalone archive for advanced users and unsupported distros.</p>
-                    <a href="LINK_TO_LINUX_TAR" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download .tar.gz</a>
+                    <p>Packages and binaries for various Linux distributions.</p>
+                    
+                    <button id="linux-options-toggle" class="btn btn-secondary" onclick="toggleLinuxOptions()">
+                        <i class="fa-solid fa-list"></i> View Options
+                    </button>
+                    
+                    <div id="linux-options-container" class="linux-options hidden">
+                        <a href="LINK_TO_APPIMAGE" class="btn btn-secondary sub-btn"><i class="fa-solid fa-cube"></i> .AppImage (Universal)</a>
+                        <a href="LINK_TO_DEB" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box"></i> .deb (Debian/Ubuntu)</a>
+                        <a href="LINK_TO_RPM" class="btn btn-secondary sub-btn"><i class="fa-solid fa-box-open"></i> .rpm (Fedora/RHEL)</a>
+                        <a href="LINK_TO_TAR" class="btn btn-secondary sub-btn"><i class="fa-solid fa-file-zipper"></i> .tar.gz (Archive)</a>
+                    </div>
                 </div>
 
             </div>
@@ -410,5 +449,21 @@
         </footer>
     </div>
 
+    <script>
+        function toggleLinuxOptions() {
+            const container = document.getElementById('linux-options-container');
+            const btnIcon = document.querySelector('#linux-options-toggle i');
+            
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                btnIcon.classList.remove('fa-list');
+                btnIcon.classList.add('fa-chevron-up');
+            } else {
+                container.classList.add('hidden');
+                btnIcon.classList.remove('fa-chevron-up');
+                btnIcon.classList.add('fa-list');
+            }
+        }
+    </script>
 </body>
 </html>
